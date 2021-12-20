@@ -89,3 +89,5 @@ const promptProject = portfolioData => {
   .then(answers => console.log(answers))
   .then(promptProject)
   .then(projectAnswers => console.log(projectAnswers));
+
+  //Testing
