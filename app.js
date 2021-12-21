@@ -40,9 +40,23 @@ const promptUser = () => {
             }
         },
         {
+            type: 'confirm',
+            name: 'confirmAbout',
+            message: 'Would you like to enter some information about yourself for an "About" section?',
+            default: true
+          },
+        {
             type: 'input',
             name: 'about',
-            message: 'Provide some information about yourself:'
+            message: 'Provide some information about yourself:',
+            when: ({ confirmAbout }) => {
+                if (confirmAbout) {
+                  return true;
+                } else {
+                  return false;
+                }
+              }
+            
         }
     ])
 };
@@ -81,7 +95,7 @@ const promptProject = portfolioData => {
         name: 'description',
         message: 'Provide a description of the project (Required)',
         validate: projectDescription => {
-            if(projectCescription){
+            if(projectDescription){
                 return true;
             } else {
                 console.log('Please enter a Project Description!');
@@ -115,10 +129,7 @@ const promptProject = portfolioData => {
     ])
     .then(projectData => {
         portfolioData.projects.push(projectData);
-    })
-    .then(projectData => {
-        portfolioData.projects.push(projectData);
-        if (projectData.confirmAddProject) {
+        if (projectData.confirmAddProject) {   
           return promptProject(portfolioData);
         } else {
           return portfolioData;
